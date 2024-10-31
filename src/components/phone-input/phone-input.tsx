@@ -18,7 +18,7 @@ export default function PhoneInput({
   return (
     <FormControl
       fullWidth
-      sx={{ maxWidth: 700, mb: 4 }}
+      sx={{ maxWidth: 700, mb: 1 }}
       variant="standard"
       required
     >

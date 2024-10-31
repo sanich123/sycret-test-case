@@ -10,7 +10,7 @@ export function createFormHelperText({
   onFocusText: string;
 }) {
   if (isError) {
-    return `${onErrorText}`;
+    return onErrorText;
   } else {
     if (isFocused) {
       return onFocusText;
@@ -18,3 +18,5 @@ export function createFormHelperText({
   }
   return " ";
 }
+
+export const emailMatcher = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
