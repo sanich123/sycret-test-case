@@ -49,7 +49,8 @@ export async function sendUserDataToServer({
 }: SendUserDataToServerProps) {
   try {
     setIsDisabled(true);
-    const searchParams = `ApiKey=${API_KEY}&MethodName=${Methods.osSale}&Id=${selectedCertificateId}&Phone=${phoneNumber}&ClientName=${name}&MsgTxt=${message}&Email=${email}`;
+    const normalizedPhoneNumber = phoneNumber.replaceAll(/\D/gi, "");
+    const searchParams = `ApiKey=${API_KEY}&MethodName=${Methods.osSale}&Id=${selectedCertificateId}&Phone=${normalizedPhoneNumber}&ClientName=${name}&MsgTxt=${message}&Email=${email}`;
     const response = await fetch(`${BASE_URL}?${searchParams}`);
     const jsonResponse = await response.json();
     if (jsonResponse?.result === 0) {
