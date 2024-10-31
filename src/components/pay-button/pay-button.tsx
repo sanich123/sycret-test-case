@@ -43,7 +43,7 @@ export default function PayButton({
       color="success"
       onClick={() => setIsClicked(true)}
     >
-      {isClicked && !isError ? "Переходим.." : "Перейти к оплате"}
+      {isClicked && !isError ? "Переходим.." : "Оплатить"}
       {isError && "Ошибка"}
     </Button>
   );
