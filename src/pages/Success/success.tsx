@@ -7,9 +7,8 @@ export default function Success() {
   const [searchParams] = useSearchParams();
   return (
     <Box sx={layout}>
-      <Typography>
-        Страница оплаты. Передали на сервер следующие данные:
-      </Typography>
+      <Typography>Страница оплаты.</Typography>
+      <Typography>Передали на сервер следующие данные:</Typography>
       {[...searchParams.entries()].map(([key, value]) => (
         <Typography key={key}>{`${key} : ${value}`}</Typography>
       ))}
