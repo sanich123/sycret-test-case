@@ -8,6 +8,7 @@ import { LS_NAMES } from "../../redux/const";
 export default function MessageInput({
   message,
   setMessage,
+  isDisabled,
 }: MessageInputProps) {
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
@@ -15,6 +16,7 @@ export default function MessageInput({
   return (
     <FormControl fullWidth sx={{ maxWidth: 700, mb: 1 }}>
       <TextField
+        disabled={isDisabled}
         label="Сообщение"
         variant="standard"
         onChange={({ target: { value } }) => setMessage(value)}

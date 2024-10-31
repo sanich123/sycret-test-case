@@ -6,7 +6,11 @@ import { saveEmail } from "../../redux/certificates";
 import { LS_NAMES } from "../../redux/const";
 import { createFormHelperText, emailMatcher } from "../../utils/utils";
 
-export default function EmailInput({ email, setEmail }: EmailInputProps) {
+export default function EmailInput({
+  email,
+  setEmail,
+  isDisabled,
+}: EmailInputProps) {
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -37,6 +41,7 @@ export default function EmailInput({ email, setEmail }: EmailInputProps) {
           onErrorText: "Вы ввели некорректную почту",
           onFocusText: "Введите ваш адрес email",
         })}
+        disabled={isDisabled}
       />
     </FormControl>
   );

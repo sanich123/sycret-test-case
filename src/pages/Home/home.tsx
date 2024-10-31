@@ -14,9 +14,12 @@ import { useGetCertificatesByApiKeyQuery } from "../../redux/sycret-api";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/constants";
 import { store } from "../../redux/store";
-import { saveCertificateValue } from "../../redux/certificates";
+import {
+  saveCertificateId,
+  saveCertificateValue,
+} from "../../redux/certificates";
 import { useAppDispatch } from "../../redux/hooks";
-import { LS_NAMES } from "../../redux/const";
+import { LS_NAMES, Methods } from "../../redux/const";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -30,7 +33,7 @@ export default function Home() {
     isSuccess,
     isLoading,
     isError,
-  } = useGetCertificatesByApiKeyQuery("OSGetGoodList");
+  } = useGetCertificatesByApiKeyQuery(Methods.osGetGoods);
 
   return (
     <Box
@@ -41,12 +44,12 @@ export default function Home() {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-        height: "100vh",
+        height: "90vh",
       }}
     >
       {isLoading && <CircularProgress />}
       {isSuccess && (
-        <FormControl fullWidth required>
+        <FormControl fullWidth required sx={{ maxWidth: 700 }}>
           <InputLabel id="certificates-form" variant="outlined">
             Выберите сертификат
           </InputLabel>
@@ -71,7 +74,14 @@ export default function Home() {
                 ID: string;
                 PRICE: string;
               }) => (
-                <MenuItem value={price} key={id}>
+                <MenuItem
+                  value={price}
+                  key={id}
+                  onClick={() => {
+                    dispatch(saveCertificateId(id));
+                    localStorage.setItem(LS_NAMES.selectedCertificateId, id);
+                  }}
+                >
                   {name}
                 </MenuItem>
               )

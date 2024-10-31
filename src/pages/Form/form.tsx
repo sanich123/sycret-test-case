@@ -17,6 +17,8 @@ export default function Form() {
     phoneNumber,
     message,
     email,
+    isDisabled,
+    setIsDisabled,
     setName,
     setPhoneNumber,
     setMessage,
@@ -26,23 +28,39 @@ export default function Form() {
 
   return (
     <Box sx={layout}>
-      <Typography variant="h6">{`Сертификат на ${selectedCertificate.slice(
-        0,
-        -3
-      )} рублей`}</Typography>
-      <NameSurnameInput name={name} setName={setName} />
-      <PhoneInput phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} />
-      <MessageInput message={message} setMessage={setMessage} />
-      <EmailInput email={email} setEmail={setEmail} />
-      <Box sx={centeredLayout}>
+      <Typography
+        variant="h6"
+        style={{ opacity: isDisabled ? 0.5 : 1 }}
+      >{`Сертификат на ${selectedCertificate.slice(0, -3)} рублей`}</Typography>
+      <NameSurnameInput name={name} setName={setName} isDisabled={isDisabled} />
+      <PhoneInput
+        phoneNumber={phoneNumber}
+        setPhoneNumber={setPhoneNumber}
+        isDisabled={isDisabled}
+      />
+      <MessageInput
+        message={message}
+        setMessage={setMessage}
+        isDisabled={isDisabled}
+      />
+      <EmailInput email={email} setEmail={setEmail} isDisabled={isDisabled} />
+      <Box sx={centeredLayout} style={{ opacity: isDisabled ? 0.5 : 1 }}>
         <Link href="https://sycret.ru/" color="primary" variant="h6">
           Правила
         </Link>
       </Box>
 
       <Box sx={{ display: "flex", flexDirection: "row", columnGap: 1 }}>
-        <BackButton />
-        <PayButton isValidFields={isValidFields} />
+        <BackButton isDisabled={isDisabled} />
+        <PayButton
+          setIsDisabled={setIsDisabled}
+          isDisabled={isDisabled}
+          isValidFields={isValidFields}
+          name={name}
+          phoneNumber={phoneNumber}
+          message={message}
+          email={email}
+        />
       </Box>
     </Box>
   );

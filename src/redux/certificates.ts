@@ -6,6 +6,8 @@ export const userData = createSlice({
   initialState: {
     selectedCertificate:
       localStorage.getItem(LS_NAMES.selectedCertificate) || "",
+    selectedCertificateId:
+      localStorage.getItem(LS_NAMES.selectedCertificateId) || "",
     nameSurname: localStorage.getItem(LS_NAMES.nameSurname) || "",
     phoneNumber: localStorage.getItem(LS_NAMES.phoneNumber) || "",
     message: localStorage.getItem(LS_NAMES.message) || "",
@@ -14,6 +16,9 @@ export const userData = createSlice({
   reducers: {
     saveCertificateValue: (state, action) => {
       state.selectedCertificate = action.payload;
+    },
+    saveCertificateId: (state, action) => {
+      state.selectedCertificateId = action.payload;
     },
     saveNameSurname: (state, action) => {
       state.nameSurname = action.payload;
@@ -32,6 +37,7 @@ export const userData = createSlice({
 
 export const {
   saveCertificateValue,
+  saveCertificateId,
   saveNameSurname,
   savePhoneNumber,
   saveMessage,

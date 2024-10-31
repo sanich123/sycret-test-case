@@ -10,4 +10,10 @@ export const enum LS_NAMES {
   email = "email",
   message = "message",
   selectedCertificate = "selectedCertificate",
+  selectedCertificateId = "selectedCertificateId",
+}
+
+export const enum Methods {
+  osSale = "OSSale",
+  osGetGoods = "OSGetGoodList",
 }
