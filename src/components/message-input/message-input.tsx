@@ -3,7 +3,7 @@ import { FormControl, TextField } from "@mui/material";
 import { MessageInputProps } from "./types";
 import { useAppDispatch } from "../../redux/hooks";
 import { saveMessage } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 
 export default function MessageInput({
   message,
@@ -24,7 +24,7 @@ export default function MessageInput({
         onBlur={({ target: { value } }) => {
           setIsFocused(false);
           dispatch(saveMessage(value));
-          localStorage.setItem(LS_NAMES.message, value);
+          localStorage.setItem(LocalStorageNames.message, value);
         }}
         value={message}
         helperText={`${isFocused ? "Введите ваше сообщение" : " "}`}

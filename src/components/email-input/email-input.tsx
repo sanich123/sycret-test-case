@@ -3,7 +3,7 @@ import { FormControl, TextField } from "@mui/material";
 import { EmailInputProps } from "./types";
 import { useAppDispatch } from "../../redux/hooks";
 import { saveEmail } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 import { createFormHelperText, emailMatcher } from "../../utils/utils";
 
 export default function EmailInput({
@@ -32,7 +32,7 @@ export default function EmailInput({
           setIsFocused(false);
           setIsError(!emailMatcher.test(trimmedValue));
           dispatch(saveEmail(trimmedValue));
-          localStorage.setItem(LS_NAMES.email, trimmedValue);
+          localStorage.setItem(LocalStorageNames.email, trimmedValue);
         }}
         value={email}
         helperText={createFormHelperText({

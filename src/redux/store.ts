@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { sycretApi } from "./sycret-api";
 import userData from "./certificates";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   userData,
   [sycretApi.reducerPath]: sycretApi.reducer,
 });

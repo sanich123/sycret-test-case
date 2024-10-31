@@ -3,7 +3,8 @@ export const layout = {
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
-  height: "90vh",
+  height: "100vh",
+  px: 1,
 };
 
 export const centeredLayout = {

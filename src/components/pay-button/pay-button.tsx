@@ -7,12 +7,12 @@ import { sendUserDataToServer } from "../../utils/utils";
 
 export default function PayButton({
   isValidFields,
+  isDisabled,
+  setIsDisabled,
   name,
   email,
   phoneNumber,
   message,
-  setIsDisabled,
-  isDisabled,
 }: PayButtonProps) {
   const { selectedCertificateId } = useAppSelector(({ userData }) => userData);
   const [isClicked, setIsClicked] = useState(false);
@@ -43,8 +43,7 @@ export default function PayButton({
       color="success"
       onClick={() => setIsClicked(true)}
     >
-      {!isClicked && "Перейти к оплате"}
-      {isClicked && "Переходим.."}
+      {isClicked && !isError ? "Переходим.." : "Перейти к оплате"}
       {isError && "Ошибка"}
     </Button>
   );

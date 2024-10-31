@@ -1,5 +1,5 @@
 import { API_KEY, BASE_URL, Methods } from "../redux/const";
-import { ROUTES } from "../routes/constants";
+import { Routes } from "../routes/const";
 
 export function createFormHelperText({
   isError,
@@ -49,12 +49,13 @@ export async function sendUserDataToServer({
 }: SendUserDataToServerProps) {
   try {
     setIsDisabled(true);
-    const response = await fetch(
-      `${BASE_URL}?ApiKey=${API_KEY}&MethodName=${Methods.osSale}&Id=${selectedCertificateId}&Phone=${phoneNumber}&ClientName=${name}&MsgTxt=${message}&Email=${email}`
-    );
+    const searchParams = `ApiKey=${API_KEY}&MethodName=${Methods.osSale}&Id=${selectedCertificateId}&Phone=${phoneNumber}&ClientName=${name}&MsgTxt=${message}&Email=${email}`;
+    const response = await fetch(`${BASE_URL}?${searchParams}`);
     const jsonResponse = await response.json();
     if (jsonResponse?.result === 0) {
-      navigate(ROUTES.SUCCESS);
+      navigate(`${Routes.successPage}?${searchParams}`);
+    } else {
+      setIsError(true);
     }
   } catch (error) {
     setIsError(true);

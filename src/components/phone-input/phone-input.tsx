@@ -4,7 +4,7 @@ import { PhoneInputProps } from "./types";
 import { TextMaskCustom } from "./custom-phone-input";
 import { useAppDispatch } from "../../redux/hooks";
 import { savePhoneNumber } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 import { createFormHelperText } from "../../utils/utils";
 
 export const VALID_LENGTH_OF_PHONE_NUMBER = 18;
@@ -40,7 +40,7 @@ export default function PhoneInput({
           setIsFocused(false);
           setIsError(value.length < VALID_LENGTH_OF_PHONE_NUMBER);
           dispatch(savePhoneNumber(value));
-          localStorage.setItem(LS_NAMES.phoneNumber, value);
+          localStorage.setItem(LocalStorageNames.phoneNumber, value);
         }}
         name="textmask"
         required

@@ -3,7 +3,7 @@ import { FormControl, TextField } from "@mui/material";
 import { NameSurnameProps } from "./types";
 import { useAppDispatch } from "../../redux/hooks";
 import { saveNameSurname } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 import { createFormHelperText } from "../../utils/utils";
 
 export default function NameSurnameInput({
@@ -31,7 +31,7 @@ export default function NameSurnameInput({
           setIsFocused(false);
           setIsError(!value);
           dispatch(saveNameSurname(value));
-          localStorage.setItem(LS_NAMES.nameSurname, value);
+          localStorage.setItem(LocalStorageNames.nameSurname, value);
         }}
         value={name}
         helperText={createFormHelperText({
