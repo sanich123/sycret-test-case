@@ -3,11 +3,12 @@ import { FormControl, TextField } from "@mui/material";
 import { MessageInputProps } from "./types";
 import { useAppDispatch } from "../../redux/hooks";
 import { saveMessage } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 
 export default function MessageInput({
   message,
   setMessage,
+  isDisabled,
 }: MessageInputProps) {
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
@@ -15,6 +16,7 @@ export default function MessageInput({
   return (
     <FormControl fullWidth sx={{ maxWidth: 700, mb: 1 }}>
       <TextField
+        disabled={isDisabled}
         label="Сообщение"
         variant="standard"
         onChange={({ target: { value } }) => setMessage(value)}
@@ -22,7 +24,7 @@ export default function MessageInput({
         onBlur={({ target: { value } }) => {
           setIsFocused(false);
           dispatch(saveMessage(value));
-          localStorage.setItem(LS_NAMES.message, value);
+          localStorage.setItem(LocalStorageNames.message, value);
         }}
         value={message}
         helperText={`${isFocused ? "Введите ваше сообщение" : " "}`}

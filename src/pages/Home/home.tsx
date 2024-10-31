@@ -2,21 +2,26 @@ import React, { useState } from "react";
 import {
   CircularProgress,
   InputLabel,
-  MenuItem,
   FormControl,
   Select,
   Box,
   Typography,
   Button,
+  MenuItem,
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useGetCertificatesByApiKeyQuery } from "../../redux/sycret-api";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../routes/constants";
+import { Routes } from "../../routes/const";
 import { store } from "../../redux/store";
-import { saveCertificateValue } from "../../redux/certificates";
+import {
+  saveCertificateId,
+  saveCertificateValue,
+} from "../../redux/certificates";
 import { useAppDispatch } from "../../redux/hooks";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames, Methods } from "../../redux/const";
+import { layout } from "../Form/styles";
+import { CertificatesFromBackend } from "./types";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -30,23 +35,13 @@ export default function Home() {
     isSuccess,
     isLoading,
     isError,
-  } = useGetCertificatesByApiKeyQuery("OSGetGoodList");
+  } = useGetCertificatesByApiKeyQuery(Methods.osGetGoods);
 
   return (
-    <Box
-      component="form"
-      sx={{
-        minWidth: 200,
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <Box component="form" sx={{ minWidth: 200, ...layout }}>
       {isLoading && <CircularProgress />}
       {isSuccess && (
-        <FormControl fullWidth required>
+        <FormControl fullWidth required sx={{ maxWidth: 700 }}>
           <InputLabel id="certificates-form" variant="outlined">
             Выберите сертификат
           </InputLabel>
@@ -56,7 +51,10 @@ export default function Home() {
             label="Выберите сертификат"
             onChange={({ target: { value } }: SelectChangeEvent) => {
               setSelectedCertificate(value);
-              localStorage.setItem(LS_NAMES.selectedCertificate, value);
+              localStorage.setItem(
+                LocalStorageNames.selectedCertificate,
+                value
+              );
               dispatch(saveCertificateValue(value));
             }}
             value={selectedCertificate}
@@ -66,12 +64,18 @@ export default function Home() {
                 NAME: name,
                 ID: id,
                 PRICE: price,
-              }: {
-                NAME: string;
-                ID: string;
-                PRICE: string;
-              }) => (
-                <MenuItem value={price} key={id}>
+              }: CertificatesFromBackend) => (
+                <MenuItem
+                  value={price}
+                  key={id}
+                  onClick={() => {
+                    dispatch(saveCertificateId(id));
+                    localStorage.setItem(
+                      LocalStorageNames.selectedCertificateId,
+                      id
+                    );
+                  }}
+                >
                   {name}
                 </MenuItem>
               )
@@ -81,19 +85,11 @@ export default function Home() {
       )}
       {isError && <p>Во время получения данных произошла ошибка</p>}
       {isSuccess && selectedCertificate && (
-        <Box
-          sx={{
-            minWidth: 200,
-            display: "flex",
-            flexDirection: "row",
-            margin: 2,
-            columnGap: 3,
-          }}
-        >
+        <Box sx={styles.buttonsLayout}>
           <Typography variant="h6" component="h6">
             {`Цена - ${selectedCertificate.slice(0, -3)} р.`}
           </Typography>
-          <Button variant="contained" onClick={() => navigate(ROUTES.FORM)}>
+          <Button variant="contained" onClick={() => navigate(Routes.form)}>
             Купить
           </Button>
         </Box>
@@ -101,3 +97,13 @@ export default function Home() {
     </Box>
   );
 }
+
+const styles = {
+  buttonsLayout: {
+    minWidth: 200,
+    display: "flex",
+    flexDirection: "row",
+    margin: 2,
+    columnGap: 3,
+  },
+};

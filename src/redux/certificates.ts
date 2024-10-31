@@ -1,19 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LS_NAMES } from "./const";
+import { LocalStorageNames } from "./const";
 
 export const userData = createSlice({
   name: "userData",
   initialState: {
     selectedCertificate:
-      localStorage.getItem(LS_NAMES.selectedCertificate) || "",
-    nameSurname: localStorage.getItem(LS_NAMES.nameSurname) || "",
-    phoneNumber: localStorage.getItem(LS_NAMES.phoneNumber) || "",
-    message: localStorage.getItem(LS_NAMES.message) || "",
-    email: localStorage.getItem(LS_NAMES.email) || "",
+      localStorage.getItem(LocalStorageNames.selectedCertificate) || "",
+    selectedCertificateId:
+      localStorage.getItem(LocalStorageNames.selectedCertificateId) || "",
+    nameSurname: localStorage.getItem(LocalStorageNames.nameSurname) || "",
+    phoneNumber: localStorage.getItem(LocalStorageNames.phoneNumber) || "",
+    message: localStorage.getItem(LocalStorageNames.message) || "",
+    email: localStorage.getItem(LocalStorageNames.email) || "",
   },
   reducers: {
     saveCertificateValue: (state, action) => {
       state.selectedCertificate = action.payload;
+    },
+    saveCertificateId: (state, action) => {
+      state.selectedCertificateId = action.payload;
     },
     saveNameSurname: (state, action) => {
       state.nameSurname = action.payload;
@@ -32,9 +37,11 @@ export const userData = createSlice({
 
 export const {
   saveCertificateValue,
+  saveCertificateId,
   saveNameSurname,
   savePhoneNumber,
   saveMessage,
   saveEmail,
 } = userData.actions;
+
 export default userData.reducer;

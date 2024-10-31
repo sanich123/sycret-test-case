@@ -1,5 +1,18 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
+import { layout } from "../Form/styles";
+import { useSearchParams } from "react-router-dom";
 
 export default function Success() {
-  return <h2>Success page</h2>;
+  const [searchParams] = useSearchParams();
+  return (
+    <Box sx={layout}>
+      <Typography>
+        Страница оплаты. Передали на сервер следующие данные:
+      </Typography>
+      {[...searchParams.entries()].map(([key, value]) => (
+        <Typography key={key}>{`${key} : ${value}`}</Typography>
+      ))}
+    </Box>
+  );
 }

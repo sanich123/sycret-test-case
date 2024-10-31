@@ -4,12 +4,15 @@ import { PhoneInputProps } from "./types";
 import { TextMaskCustom } from "./custom-phone-input";
 import { useAppDispatch } from "../../redux/hooks";
 import { savePhoneNumber } from "../../redux/certificates";
-import { LS_NAMES } from "../../redux/const";
+import { LocalStorageNames } from "../../redux/const";
 import { createFormHelperText } from "../../utils/utils";
+
+export const VALID_LENGTH_OF_PHONE_NUMBER = 18;
 
 export default function PhoneInput({
   phoneNumber,
   setPhoneNumber,
+  isDisabled,
 }: PhoneInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -18,25 +21,26 @@ export default function PhoneInput({
   return (
     <FormControl
       fullWidth
-      sx={{ maxWidth: 700, mb: 4 }}
+      sx={{ maxWidth: 700, mb: 1 }}
       variant="standard"
       required
     >
       <InputLabel htmlFor="formatted-text-mask-input">Телефон</InputLabel>
       <Input
+        disabled={isDisabled}
         error={isError}
         value={phoneNumber}
         onChange={({ target: { value } }) => {
-          setIsError(value.length < 18);
+          setIsError(value.length < VALID_LENGTH_OF_PHONE_NUMBER);
           setPhoneNumber(value);
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={({ target: { value } }) => {
           setPhoneNumber(value);
           setIsFocused(false);
-          setIsError(value.length < 18);
+          setIsError(value.length < VALID_LENGTH_OF_PHONE_NUMBER);
           dispatch(savePhoneNumber(value));
-          localStorage.setItem(LS_NAMES.phoneNumber, value);
+          localStorage.setItem(LocalStorageNames.phoneNumber, value);
         }}
         name="textmask"
         required
