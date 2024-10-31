@@ -6,6 +6,7 @@ import type { PreloadedState } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { rootReducer, RootState, store } from "../../src/redux/store";
 
+
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;
   store?: typeof store;
